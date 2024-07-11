@@ -50,11 +50,11 @@ export const authOptions: NextAuthOptions = {
                 id: user.id,
             },
         }),
-        signIn: ({ user, email }) => {
-            if (email?.verificationRequest) {
-                return new URL('/unauthorized?error=NewRegistrationNotAllowed', env.NEXTAUTH_URL).toString()
-            }
-        },
+        // signIn: ({ user, email }) => {
+        //     if (email?.verificationRequest) {
+        //         return new URL('/unauthorized?error=NewRegistrationNotAllowed', env.NEXTAUTH_URL).toString()
+        //     }
+        // },
     },
     adapter: DrizzleAdapter(db, {
         usersTable: users,
