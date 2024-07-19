@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
 
-      - run: pnpm lint
+      - run: SKIP_ENV_VALIDATION=1 pnpm lint
 
   prettier:
     runs-on: ubuntu-latest
