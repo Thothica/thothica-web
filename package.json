@@ -12,8 +12,8 @@
     "dev": "next dev",
     "lint": "next lint",
     "start": "next start",
-    "check": "prettier . --check",
-    "format": "prettier . --write"
+    "format:check": "prettier . --check --ignore-unknown --no-error-on-unmatched-pattern",
+    "format": "prettier . --write --ignore-unknown --no-error-on-unmatched-pattern"
   },
   "dependencies": {
     "@auth/drizzle-adapter": "^1.1.0",
