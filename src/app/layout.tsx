@@ -7,7 +7,7 @@ import { TRPCReactProvider } from "@/trpc/react";
 export const metadata = {
   title: "Thothica",
   description: "Digital library",
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+  icons: [{ rel: "icon", url: "/thothica.svg" }],
 };
 
 export default function RootLayout({
