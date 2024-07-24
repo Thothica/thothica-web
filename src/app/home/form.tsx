@@ -26,7 +26,7 @@ const FormSchema = z.object({
   .email("This is not a valid Email ID."),
 })
 
-export function InputForm() {
+export function LoginForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -36,6 +36,7 @@ export function InputForm() {
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     console.log(data)
+    //submit button functionality
   }
 
   return (
