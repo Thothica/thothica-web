@@ -55,7 +55,7 @@ export function LoginForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">Submit</Button>
+        <Button type="submit" className="w-full">Send Login Link</Button>
       </form>
     </Form>
   )
