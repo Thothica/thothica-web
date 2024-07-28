@@ -17,7 +17,7 @@ import { indices } from "../api/utils";
  *
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
-export const createTable = sqliteTableCreator((name) => `thothica-web_${name}`);
+export const createTable = sqliteTableCreator((name) => `thothica_${name}`);
 
 export const searchHistory = createTable("searchHistory", {
   id: text("id", { length: 255 }).notNull().primaryKey().$defaultFn(nanoid),
