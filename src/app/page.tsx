@@ -1,3 +1,6 @@
+
 export default async function Home() {
-  return <main>In development</main>;
+  return <main>
+    HomePage
+  </main>;
 }
