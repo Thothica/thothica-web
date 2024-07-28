@@ -14,6 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { signIn } from "next-auth/react";
 
 const FormSchema = z.object({
   email: z
@@ -36,8 +37,7 @@ export function LoginForm() {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
-    //submit button functionality
+    signIn("email", { email: data.email });
   }
 
   return (
