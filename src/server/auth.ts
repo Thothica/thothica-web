@@ -53,25 +53,6 @@ export const authOptions: NextAuthOptions = {
         id: user.id,
       },
     }),
-    async signIn(params) {
-      if (!params.user.email) {
-        return new URL(
-          "/unauthorized?error=EmailRequired",
-          env.NEXTAUTH_URL,
-        ).toString();
-      }
-
-      const allowed = await db
-        .select()
-        .from(allowedEmails)
-        .where(sql`${allowedEmails.email} = ${params.user.email}`);
-
-      if (!allowed) {
-        return false;
-      }
-
-      return true;
-    },
   },
   adapter: DrizzleAdapter(db, {
     usersTable: users,
