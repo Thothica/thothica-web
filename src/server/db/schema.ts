@@ -5,11 +5,9 @@ import {
   primaryKey,
   sqliteTableCreator,
   text,
-  uniqueIndex,
 } from "drizzle-orm/sqlite-core";
 import { type AdapterAccount } from "next-auth/adapters";
 import { nanoid } from "nanoid";
-import { indices } from "../api/utils";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -17,23 +15,7 @@ import { indices } from "../api/utils";
  *
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
-export const createTable = sqliteTableCreator((name) => `thothica-web_${name}`);
-
-export const searchHistory = createTable("searchHistory", {
-  id: text("id", { length: 255 }).notNull().primaryKey().$defaultFn(nanoid),
-  query: text("query", { length: 255 }).notNull(),
-  searchResult: text("result", { mode: "json" }).notNull(),
-  index: text("index", { enum: indices }).notNull(),
-  userId: text("userId", { length: 255 })
-    .notNull()
-    .references(() => users.id, {
-      onDelete: "cascade",
-    }),
-});
-
-export const searchRelation = relations(searchHistory, ({ one }) => ({
-  user: one(users, { fields: [searchHistory.userId], references: [users.id] }),
-}));
+export const createTable = sqliteTableCreator((name) => `thothica_${name}`);
 
 export const users = createTable("user", {
   id: text("id", { length: 255 }).notNull().primaryKey(),
@@ -118,6 +100,6 @@ export const allowedEmails = createTable(
     email: text("email", { length: 255 }).notNull(),
   },
   (table) => ({
-    emailIdx: uniqueIndex("email_idx").on(table.email),
+    emailIdx: index("email_idx").on(table.email),
   }),
 );

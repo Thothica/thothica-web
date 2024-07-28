@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -12,19 +12,21 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { signIn } from "next-auth/react";
 
 const FormSchema = z.object({
   email: z
-  .string().min(1, {
-    message: "This field can't be left empty.",
-  })
-  .max(255,{
-    message: "Email ID is too long."
-  })
-  .email("This is not a valid Email ID."),
-})
+    .string()
+    .min(1, {
+      message: "This field can't be left empty.",
+    })
+    .max(255, {
+      message: "Email ID is too long.",
+    })
+    .email("This is not a valid Email ID."),
+});
 
 export function LoginForm() {
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -32,11 +34,10 @@ export function LoginForm() {
     defaultValues: {
       email: "",
     },
-  })
+  });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data)
-    //submit button functionality
+    signIn("email", { email: data.email });
   }
 
   return (
@@ -55,8 +56,10 @@ export function LoginForm() {
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full">Send Login Link</Button>
+        <Button type="submit" className="w-full">
+          Send Login Link
+        </Button>
       </form>
     </Form>
-  )
+  );
 }

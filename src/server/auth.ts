@@ -9,10 +9,14 @@ import { type Adapter } from "next-auth/adapters";
 import { db } from "@/server/db";
 import {
   accounts,
+  allowedEmails,
   sessions,
   users,
   verificationTokens,
 } from "@/server/db/schema";
+import EmailProvider from "next-auth/providers/email";
+import { env } from "@/env";
+import { sql } from "drizzle-orm";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -49,11 +53,6 @@ export const authOptions: NextAuthOptions = {
         id: user.id,
       },
     }),
-    // signIn: ({ user, email }) => {
-    //     if (email?.verificationRequest) {
-    //         return new URL('/unauthorized?error=NewRegistrationNotAllowed', env.NEXTAUTH_URL).toString()
-    //     }
-    // },
   },
   adapter: DrizzleAdapter(db, {
     usersTable: users,
@@ -71,6 +70,10 @@ export const authOptions: NextAuthOptions = {
      *
      * @see https://next-auth.js.org/providers/github
      */
+    EmailProvider({
+      server: env.EMAIL_SERVER,
+      from: env.EMAIL_FROM,
+    }),
   ],
 };
 
