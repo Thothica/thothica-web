@@ -3,7 +3,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { error } from "console";
 import SearchIcon from "public/assets/SearchIcon";
-import React, { useState } from "react";
+<<<<<<< HEAD
+import { error } from "console";
+=======
+>>>>>>> fe7f2ab (Formatting)
 
 const tags = [
   { id: 1, name: "Academic" },
@@ -36,11 +39,18 @@ const Searchbar = () => {
   };
 
   const handleSearch = () => {
+<<<<<<< HEAD
     console.log("Search query:", searchQuery);
     if (searchQuery && selectedTag) {
       setResults(["result1", "result2"]);
     } else {
       alert("Select a Tag first!");
+=======
+    // Store the input value or perform search logic
+    console.log("Search query:", searchQuery);
+    if (searchQuery) {
+      setResults([`result`, `result3`]);
+>>>>>>> fe7f2ab (Formatting)
     }
   };
 
@@ -81,10 +91,14 @@ const Searchbar = () => {
             key={tag.id}
             variant="outline"
             size="sm"
+<<<<<<< HEAD
             className={`rounded-full border-muted-foreground shadow-md hover:bg-primary hover:text-primary-foreground ${
               selectedTag === tag.id ? "bg-primary text-primary-foreground" : ""
             }`}
             onClick={() => handleTagClick(tag.id)}
+=======
+            className="rounded-full border-foreground hover:bg-yellow-200 "
+>>>>>>> fe7f2ab (Formatting)
           >
             {tag.name}
           </Button>
@@ -95,6 +109,12 @@ const Searchbar = () => {
       <div className="rounded-lg bg-background py-4">
         {results.length > 0 ? (
           <ul>
+<<<<<<< HEAD
+=======
+            <span className="text-2xl text-foreground sm:text-4xl">
+              Results for {searchQuery}
+            </span>
+>>>>>>> fe7f2ab (Formatting)
             {results.map((result, index) => (
               <li key={index} className="py-4">
                 {result}
