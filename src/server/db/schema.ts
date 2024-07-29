@@ -18,7 +18,7 @@ import { nanoid } from "nanoid";
 export const createTable = sqliteTableCreator((name) => `thothica_${name}`);
 
 export const users = createTable("user", {
-  id: text("id", { length: 255 }).notNull().primaryKey(),
+  id: text("id", { length: 255 }).notNull().primaryKey().$defaultFn(nanoid),
   name: text("name", { length: 255 }),
   email: text("email", { length: 255 }).notNull(),
   emailVerified: int("emailVerified", {
