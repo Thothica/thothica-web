@@ -1,4 +1,4 @@
-import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
+import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 import { z } from "zod";
 import {
   DocumentSource,
@@ -27,7 +27,7 @@ const searchQuery = (vectorField: string, query: string) => {
 };
 
 export const searchRouter = createTRPCRouter({
-  searchOnIndex: publicProcedure
+  searchOnIndex: protectedProcedure
     .input(
       z.object({
         query: z.string().min(1),
@@ -72,7 +72,7 @@ export const searchRouter = createTRPCRouter({
           });
 
           const filteredSource: DocumentSource = Object.fromEntries(
-            updatedEntries.filter(([key, value]) => typeof value === "string"),
+            updatedEntries.filter(([_, value]) => typeof value === "string"),
           );
 
           return {

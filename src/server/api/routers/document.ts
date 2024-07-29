@@ -1,10 +1,10 @@
-import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
+import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 import { z } from "zod";
 import { indices, opensearchClient } from "../utils";
 import { TRPCError } from "@trpc/server";
 
 export const documentRouter = createTRPCRouter({
-  getDocById: publicProcedure
+  getDocById: protectedProcedure
     .input(
       z.object({
         opensearchIndex: z.enum(indices),
