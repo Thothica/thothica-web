@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import SearchIcon from 'public/assets/SearchIcon';
+import { error } from 'console';
 
 const tags = [
   { id: 1, name: 'Academic' },
@@ -27,8 +28,10 @@ const Searchbar = () => {
 
   const handleSearch = () => {
     console.log('Search query:', searchQuery);
-    if (searchQuery) {
+    if (searchQuery && selectedTag) {
       setResults(['result1', 'result2']);
+    } else {
+      alert('Select a Tag first!');
     }
   };
 
