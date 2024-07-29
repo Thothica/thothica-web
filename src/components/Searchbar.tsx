@@ -1,10 +1,18 @@
 "use client";
-import React, { useState } from "react";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import SearchIcon from "public/assets/SearchIcon";
+import { useState } from "react";
 
 const tags = [
+  { id: 1, name: "Academic" },
+  { id: 2, name: "Library Of Congress" },
+  { id: 3, name: "Arabic Books" },
+  { id: 4, name: "Legal" },
+  { id: 5, name: "Manuscripts" },
+  { id: 6, name: "Indic Literature" },
+  { id: 7, name: "Grey Literature" },
+  { id: 8, name: "Poetry" },
   { id: 1, name: "Academic" },
   { id: 2, name: "Library Of Congress" },
   { id: 3, name: "Arabic Books" },
@@ -19,16 +27,23 @@ const Searchbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [results, setResults] = useState<string[]>([]);
 
+  const [selectedTag, setSelectedTag] = useState<number | null>(null);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
 
   const handleSearch = () => {
-    // Store the input value or perform search logic
     console.log("Search query:", searchQuery);
-    if (searchQuery) {
-      setResults([`result`, `result3`]);
+    if (searchQuery && selectedTag) {
+      setResults(["result1", "result2"]);
+    } else {
+      alert("Select a Tag first!");
     }
+  };
+
+  const handleTagClick = (tagId: number) => {
+    setSelectedTag(tagId);
   };
 
   return (
@@ -58,7 +73,10 @@ const Searchbar = () => {
             key={tag.id}
             variant="outline"
             size="sm"
-            className="rounded-full border-foreground hover:bg-yellow-200 "
+            className={`rounded-full border-muted-foreground shadow-md hover:bg-primary hover:text-primary-foreground ${
+              selectedTag === tag.id ? "bg-primary text-primary-foreground" : ""
+            }`}
+            onClick={() => handleTagClick(tag.id)}
           >
             {tag.name}
           </Button>
@@ -68,9 +86,6 @@ const Searchbar = () => {
       <div className="rounded-lg bg-background py-4">
         {results.length > 0 ? (
           <ul>
-            <span className="text-2xl text-foreground sm:text-4xl">
-              Results for {searchQuery}
-            </span>
             {results.map((result, index) => (
               <li key={index} className="py-4">
                 {result}
