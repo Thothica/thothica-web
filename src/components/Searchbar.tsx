@@ -1,49 +1,69 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import SearchIcon from "public/assets/SearchIcon";
+import { type Index } from "@/server/api/utils";
+import { api } from "@/trpc/react";
+import { Search } from 'lucide-react';
 import { useState } from "react";
+import Error from "@/components/Error";
+import { SkeletonCard } from "./SkeletonCard";
 
-const tags = [
-  { id: 1, name: "Academic" },
-  { id: 2, name: "Library Of Congress" },
-  { id: 3, name: "Arabic Books" },
-  { id: 4, name: "Legal" },
-  { id: 5, name: "Manuscripts" },
-  { id: 6, name: "Indic Literature" },
-  { id: 7, name: "Grey Literature" },
-  { id: 8, name: "Poetry" },
-  { id: 1, name: "Academic" },
-  { id: 2, name: "Library Of Congress" },
-  { id: 3, name: "Arabic Books" },
-  { id: 4, name: "Legal" },
-  { id: 5, name: "Manuscripts" },
-  { id: 6, name: "Indic Literature" },
-  { id: 7, name: "Grey Literature" },
-  { id: 8, name: "Poetry" },
+interface indexSelection {
+  id: number;
+  name: string;
+  opensearchIndex: Index;
+}
+
+const tags: indexSelection[] = [
+  { id: 1, name: "Library Of Congress", opensearchIndex: "loc-new-index" },
+  { id: 2, name: "Arabic Books", opensearchIndex: "cleaned-arabicbooks-index" },
+  { id: 3, name: "Legal", opensearchIndex: "legaltext-index" },
+  { id: 4, name: "Indic Literature", opensearchIndex: "indic-lit-index" },
+  { id: 5, name: "Grey Literature", opensearchIndex: "libertarian-chunks-index" },
+  { id: 6, name: "Poetry", opensearchIndex: "arabic-poems-index" },
+  { id: 7, name: "Dutch Text", opensearchIndex: "cleaned-dutchtext-index" },
+  { id: 8, name: "Open Alex", opensearchIndex: "openalex-index" },
 ];
 
 const Searchbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [results, setResults] = useState<string[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
 
-  const [selectedTag, setSelectedTag] = useState<number | null>(null);
+  const searchMutation = api.searchRouter.searchOnIndex.useMutation({
+    onSuccess: () => {
+      setIsSearching(false);
+    },
+    onError: () => {
+      setIsSearching(false);
+    },
+  });
+
+  const [selectedTag, setSelectedTag] = useState<indexSelection>({ id: 1, name: "Library Of Congress", opensearchIndex: "loc-new-index" });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
 
   const handleSearch = () => {
-    console.log("Search query:", searchQuery);
-    if (searchQuery && selectedTag) {
-      setResults(["result1", "result2"]);
-    } else {
-      alert("Select a Tag first!");
+    if (isSearching) {
+      console.log("Stop spamming");
+      return;
     }
+
+    if (!searchQuery || !selectedTag) {
+      console.log("No input in search or no tag selected");
+      return;
+    }
+
+    setIsSearching(true);
+    searchMutation.mutate({
+      query: searchQuery,
+      opensearchIndex: selectedTag.opensearchIndex,
+    });
   };
 
-  const handleTagClick = (tagId: number) => {
-    setSelectedTag(tagId);
+  const handleTagClick = (tag: indexSelection) => {
+    setSelectedTag(tag);
   };
 
   return (
@@ -64,7 +84,7 @@ const Searchbar = () => {
           className="ml-4 bg-muted/50 text-background"
           onClick={handleSearch}
         >
-          <SearchIcon className="h-5 w-5" />
+          <Search className="h-5 w-5" />
         </Button>
       </div>
       <div className="flex flex-wrap gap-2">
@@ -74,9 +94,9 @@ const Searchbar = () => {
             variant="outline"
             size="sm"
             className={`rounded-full border-muted-foreground shadow-md hover:bg-primary hover:text-primary-foreground ${
-              selectedTag === tag.id ? "bg-primary text-primary-foreground" : ""
+              selectedTag.id === tag.id ? "bg-primary text-primary-foreground" : ""
             }`}
-            onClick={() => handleTagClick(tag.id)}
+            onClick={() => handleTagClick(tag)}
           >
             {tag.name}
           </Button>
@@ -84,16 +104,18 @@ const Searchbar = () => {
       </div>
 
       <div className="rounded-lg bg-background py-4">
-        {results.length > 0 ? (
-          <ul>
-            {results.map((result, index) => (
-              <li key={index} className="py-4">
-                {result}
-              </li>
+        {isSearching && <SkeletonCard />}
+
+        {searchMutation.isError && <Error message={searchMutation.error.message} />}
+
+        {searchMutation.isSuccess && (
+          <span>
+            {searchMutation.data.map((result) => (
+              <div key={result._id}>
+                {result._id}
+              </div>
             ))}
-          </ul>
-        ) : (
-          <p className="text-muted-foreground"></p>
+          </span>
         )}
       </div>
     </div>
