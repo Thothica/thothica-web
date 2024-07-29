@@ -1,6 +1,5 @@
 import { env } from "@/env";
 import { Client } from "@opensearch-project/opensearch";
-import { type Client as OpensearchClient } from "@opensearch-project/opensearch";
 
 export const indices = [
   "indic-lit-index",
@@ -15,18 +14,21 @@ export const indices = [
 
 export type Index = (typeof indices)[number];
 
-const globalForOpensearch = globalThis as unknown as {
-  client: OpensearchClient | undefined;
-};
+export const opensearchClient = new Client({
+  node: `https://${env.OPENSEARCH_USER}:${env.OPENSEARCH_PASSWORD}@${env.OPENSEARCH_HOST}`,
+  ssl: {
+    rejectUnauthorized: false,
+  },
+});
 
-const client =
-  globalForOpensearch.client ??
-  new Client({
-    node: `https://${env.OPENSEARCH_USER}:${env.OPENSEARCH_PASSWORD}@${env.OPENSEARCH_HOST}`,
-    ssl: {
-      rejectUnauthorized: false,
-    },
-  });
-if (env.NODE_ENV !== "production") globalForOpensearch.client = client;
+export interface DocumentSource {
+  Title: string;
+  [key: string]: any;
+}
 
-export const opensearchClient = client;
+export interface OpensearchDocument {
+  _id: string;
+  _index: string;
+  _score: number;
+  _source: DocumentSource;
+}

@@ -8,6 +8,7 @@ import {
 } from "drizzle-orm/sqlite-core";
 import { type AdapterAccount } from "next-auth/adapters";
 import { nanoid } from "nanoid";
+import { indices } from "../api/utils";
 
 /**
  * This is an example of how to use the multi-project schema feature of Drizzle ORM. Use the same
@@ -16,6 +17,22 @@ import { nanoid } from "nanoid";
  * @see https://orm.drizzle.team/docs/goodies#multi-project-schema
  */
 export const createTable = sqliteTableCreator((name) => `thothica_${name}`);
+
+export const savedResults = createTable("searchHistory", {
+  id: text("id", { length: 255 }).notNull().primaryKey().$defaultFn(nanoid),
+  query: text("query", { length: 255 }).notNull(),
+  opensearchDoc: text("result", { mode: "json" }).notNull(),
+  opensearchIndex: text("index", { enum: indices }).notNull(),
+  userId: text("userId", { length: 255 })
+    .notNull()
+    .references(() => users.id, {
+      onDelete: "cascade",
+    }),
+});
+
+export const savedResultsRelation = relations(savedResults, ({ one }) => ({
+  user: one(users, { fields: [savedResults.userId], references: [users.id] }),
+}));
 
 export const users = createTable("user", {
   id: text("id", { length: 255 }).notNull().primaryKey().$defaultFn(nanoid),
@@ -29,6 +46,7 @@ export const users = createTable("user", {
 
 export const usersRelations = relations(users, ({ many }) => ({
   accounts: many(accounts),
+  savedResults: many(savedResults),
 }));
 
 export const accounts = createTable(

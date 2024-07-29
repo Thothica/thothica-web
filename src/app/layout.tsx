@@ -23,7 +23,7 @@ export default async function RootLayout({
       <body>
         <TRPCReactProvider>
           {/* {!user ? <LoginPage /> : children} */}
-          { children }
+          {children}
         </TRPCReactProvider>
       </body>
     </html>
