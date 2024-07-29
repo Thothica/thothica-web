@@ -1,23 +1,23 @@
-'use client'
-import React, { useState } from 'react';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import SearchIcon from 'public/assets/SearchIcon';
-import { error } from 'console';
+"use client";
+import React, { useState } from "react";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import SearchIcon from "public/assets/SearchIcon";
+import { error } from "console";
 
 const tags = [
-  { id: 1, name: 'Academic' },
-  { id: 2, name: 'Library Of Congress' },
-  { id: 3, name: 'Arabic Books' },
-  { id: 4, name: 'Legal' },
-  { id: 5, name: 'Manuscripts' },
-  { id: 6, name: 'Indic Literature' },
-  { id: 7, name: 'Grey Literature' },
-  { id: 8, name: 'Poetry' },
+  { id: 1, name: "Academic" },
+  { id: 2, name: "Library Of Congress" },
+  { id: 3, name: "Arabic Books" },
+  { id: 4, name: "Legal" },
+  { id: 5, name: "Manuscripts" },
+  { id: 6, name: "Indic Literature" },
+  { id: 7, name: "Grey Literature" },
+  { id: 8, name: "Poetry" },
 ];
 
 const Searchbar = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [results, setResults] = useState<string[]>([]);
 
   const [selectedTag, setSelectedTag] = useState<number | null>(null);
@@ -27,11 +27,11 @@ const Searchbar = () => {
   };
 
   const handleSearch = () => {
-    console.log('Search query:', searchQuery);
+    console.log("Search query:", searchQuery);
     if (searchQuery && selectedTag) {
-      setResults(['result1', 'result2']);
+      setResults(["result1", "result2"]);
     } else {
-      alert('Select a Tag first!');
+      alert("Select a Tag first!");
     }
   };
 
@@ -40,34 +40,34 @@ const Searchbar = () => {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
-      <div className="flex items-center bg-foreground border rounded-lg px-4 py-2 mb-4">
-        <div className="flex-1 relative bg-background rounded-sm">
+    <div className="mx-auto w-full max-w-2xl">
+      <div className="mb-4 flex items-center rounded-lg border bg-foreground px-4 py-2">
+        <div className="relative flex-1 rounded-sm bg-background">
           <Input
             type="search"
             placeholder="Enter Your Research Question Here..."
             value={searchQuery}
             onChange={handleInputChange}
-            className="w-full bg-transparent border-none focus:ring-0 focus:outline-none"
+            className="w-full border-none bg-transparent focus:outline-none focus:ring-0"
           />
         </div>
         <Button
           variant="ghost"
           size="icon"
-          className="ml-4 text-background bg-muted/50"
+          className="ml-4 bg-muted/50 text-background"
           onClick={handleSearch}
         >
-          <SearchIcon className="w-5 h-5" />
+          <SearchIcon className="h-5 w-5" />
         </Button>
       </div>
       <div className="flex flex-wrap gap-2">
-        {tags.map(tag => (
+        {tags.map((tag) => (
           <Button
             key={tag.id}
-            variant='outline'
+            variant="outline"
             size="sm"
-            className={`border-muted-foreground shadow-md hover:bg-primary hover:text-primary-foreground rounded-full ${
-              selectedTag === tag.id ? 'bg-primary text-primary-foreground' : ''
+            className={`rounded-full border-muted-foreground shadow-md hover:bg-primary hover:text-primary-foreground ${
+              selectedTag === tag.id ? "bg-primary text-primary-foreground" : ""
             }`}
             onClick={() => handleTagClick(tag.id)}
           >
@@ -76,7 +76,7 @@ const Searchbar = () => {
         ))}
       </div>
 
-      <div className="bg-background py-4 rounded-lg">
+      <div className="rounded-lg bg-background py-4">
         {results.length > 0 ? (
           <ul>
             {results.map((result, index) => (

@@ -27,11 +27,7 @@ export default async function LoginPage() {
           </div>
         </div>
         <div className="relative hidden lg:block lg:w-2/3">
-          <Image
-            src="/assets/background.jpeg"
-            alt="library"
-            fill
-          />
+          <Image src="/assets/background.jpeg" alt="library" fill />
         </div>
       </section>
     </main>

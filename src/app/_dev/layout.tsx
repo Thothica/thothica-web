@@ -1,16 +1,12 @@
-import React from 'react'
+import React from "react";
 
-function layout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+function layout({ children }: { children: React.ReactNode }) {
   return (
     <div>
       component testing
-      { children }
+      {children}
     </div>
-  )
+  );
 }
 
-export default layout
+export default layout;
