@@ -1,11 +1,6 @@
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 import { z } from "zod";
-import {
-  DocumentSource,
-  indices,
-  opensearchClient,
-  OpensearchDocument,
-} from "../utils";
+import { indices, opensearchClient, OpensearchDocument } from "../utils";
 import { TRPCError } from "@trpc/server";
 
 const searchQuery = (vectorField: string, query: string) => {
@@ -71,13 +66,9 @@ export const searchRouter = createTRPCRouter({
             return [key, value];
           });
 
-          const filteredSource: DocumentSource = Object.fromEntries(
-            updatedEntries.filter(([_, value]) => typeof value === "string"),
-          );
-
           return {
             ...doc,
-            _source: filteredSource,
+            _source: updatedEntries,
           };
         });
 
