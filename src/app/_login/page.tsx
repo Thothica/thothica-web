@@ -30,8 +30,7 @@ export default async function LoginPage() {
           <Image
             src="/assets/background.jpeg"
             alt="library"
-            layout="fill"
-            objectFit="cover"
+            fill
           />
         </div>
       </section>
