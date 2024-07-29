@@ -19,16 +19,21 @@ const Searchbar = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [results, setResults] = useState<string[]>([]);
 
+  const [selectedTag, setSelectedTag] = useState<number | null>(null);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
   };
 
   const handleSearch = () => {
-    // Store the input value or perform search logic
     console.log('Search query:', searchQuery);
-    if(searchQuery){
-        setResults([`result`,`result2`]);
+    if (searchQuery) {
+      setResults(['result1', 'result2']);
     }
+  };
+
+  const handleTagClick = (tagId: number) => {
+    setSelectedTag(tagId);
   };
 
   return (
@@ -54,7 +59,15 @@ const Searchbar = () => {
       </div>
       <div className="flex flex-wrap gap-2">
         {tags.map(tag => (
-          <Button key={tag.id} variant='outline' size="sm" className="border-muted-foreground shadow-md hover:bg-primary hover:text-primary-foreground rounded-full">
+          <Button
+            key={tag.id}
+            variant='outline'
+            size="sm"
+            className={`border-muted-foreground shadow-md hover:bg-primary hover:text-primary-foreground rounded-full ${
+              selectedTag === tag.id ? 'bg-primary text-primary-foreground' : ''
+            }`}
+            onClick={() => handleTagClick(tag.id)}
+          >
             {tag.name}
           </Button>
         ))}
@@ -63,7 +76,6 @@ const Searchbar = () => {
       <div className="bg-background py-4 rounded-lg">
         {results.length > 0 ? (
           <ul>
-            {/* <span className='text-2xl sm:text-4xl text-foreground'>Results for {searchQuery}</span> */}
             {results.map((result, index) => (
               <li key={index} className="py-4">
                 {result}
@@ -74,9 +86,8 @@ const Searchbar = () => {
           <p className="text-muted-foreground"></p>
         )}
       </div>
-
     </div>
   );
-}
+};
 
-export default Searchbar
+export default Searchbar;
