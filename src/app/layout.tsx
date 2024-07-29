@@ -3,7 +3,7 @@ import "@/styles/globals.css";
 import { GeistSans } from "geist/font/sans";
 
 import { TRPCReactProvider } from "@/trpc/react";
-import LoginPage from "./_login/page";
+import LoginPage from "./login/page";
 import { getServerAuthSession } from "@/server/auth";
 
 export const metadata = {
@@ -22,8 +22,7 @@ export default async function RootLayout({
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
         <TRPCReactProvider>
-          {/* {!user ? <LoginPage /> : children} */}
-          { children }
+          {!user ? <LoginPage /> : children}
         </TRPCReactProvider>
       </body>
     </html>

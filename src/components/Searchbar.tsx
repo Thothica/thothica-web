@@ -27,7 +27,7 @@ const Searchbar = () => {
     // Store the input value or perform search logic
     console.log('Search query:', searchQuery);
     if(searchQuery){
-        setResults([`result`,`result3`]);
+        setResults([`result`,`result2`]);
     }
   };
 
@@ -54,7 +54,7 @@ const Searchbar = () => {
       </div>
       <div className="flex flex-wrap gap-2">
         {tags.map(tag => (
-          <Button key={tag.id} variant="outline" size="sm" className="rounded-full border-foreground hover:bg-yellow-200 ">
+          <Button key={tag.id} variant='outline' size="sm" className="border-muted-foreground shadow-md hover:bg-primary hover:text-primary-foreground rounded-full">
             {tag.name}
           </Button>
         ))}
@@ -63,7 +63,7 @@ const Searchbar = () => {
       <div className="bg-background py-4 rounded-lg">
         {results.length > 0 ? (
           <ul>
-            <span className='text-2xl sm:text-4xl text-foreground'>Results for {searchQuery}</span>
+            {/* <span className='text-2xl sm:text-4xl text-foreground'>Results for {searchQuery}</span> */}
             {results.map((result, index) => (
               <li key={index} className="py-4">
                 {result}
