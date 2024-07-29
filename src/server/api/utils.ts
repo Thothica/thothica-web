@@ -24,7 +24,7 @@ export const opensearchClient = new Client({
 
 export interface DocumentSource {
   Title: string;
-  [key: string]: any;
+  [key: string]: any; // eslint-disable-line
 }
 
 export interface OpensearchDocument {
