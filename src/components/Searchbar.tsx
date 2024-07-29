@@ -1,8 +1,8 @@
 "use client";
-import React, { useState } from "react";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import SearchIcon from "public/assets/SearchIcon";
+import React, { useState } from "react";
 
 const tags = [
   { id: 1, name: "Academic" },
@@ -53,13 +53,8 @@ const Searchbar = () => {
         </Button>
       </div>
       <div className="flex flex-wrap gap-2">
-        {tags.map((tag) => (
-          <Button
-            key={tag.id}
-            variant="outline"
-            size="sm"
-            className="rounded-full border-foreground hover:bg-yellow-200 "
-          >
+        {tags.map(tag => (
+          <Button key={tag.id} variant='outline' size="sm" className="border-muted-foreground shadow-md hover:bg-primary hover:text-primary-foreground rounded-full">
             {tag.name}
           </Button>
         ))}
@@ -68,9 +63,7 @@ const Searchbar = () => {
       <div className="rounded-lg bg-background py-4">
         {results.length > 0 ? (
           <ul>
-            <span className="text-2xl text-foreground sm:text-4xl">
-              Results for {searchQuery}
-            </span>
+            {/* <span className='text-2xl sm:text-4xl text-foreground'>Results for {searchQuery}</span> */}
             {results.map((result, index) => (
               <li key={index} className="py-4">
                 {result}

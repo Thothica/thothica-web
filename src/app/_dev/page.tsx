@@ -3,8 +3,8 @@ import React from "react";
 
 function page() {
   return (
-    <section className="flex-center min-h-screen px-6">
-      <Searchbar />
+    <section className='flex flex-col flex-center min-h-screen px-6 space-y-8'>
+        <Searchbar />
     </section>
   );
 }
