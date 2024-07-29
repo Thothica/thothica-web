@@ -22,7 +22,8 @@ export default async function RootLayout({
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>
         <TRPCReactProvider>
-          {!user ? <LoginPage /> : children}
+          {/* {!user ? <LoginPage /> : children} */}
+          { children }
         </TRPCReactProvider>
       </body>
     </html>
