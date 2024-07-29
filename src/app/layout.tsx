@@ -3,8 +3,8 @@ import "@/styles/globals.css";
 import { GeistSans } from "geist/font/sans";
 
 import { TRPCReactProvider } from "@/trpc/react";
-import { getServerSession } from "next-auth";
 import LoginPage from "./_login/page";
+import { getServerAuthSession } from "@/server/auth";
 
 export const metadata = {
   title: "Thothica",
@@ -17,7 +17,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const user = await getServerSession();
+  const user = await getServerAuthSession();
   return (
     <html lang="en" className={`${GeistSans.variable}`}>
       <body>

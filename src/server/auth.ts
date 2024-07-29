@@ -9,14 +9,12 @@ import { type Adapter } from "next-auth/adapters";
 import { db } from "@/server/db";
 import {
   accounts,
-  allowedEmails,
   sessions,
   users,
   verificationTokens,
 } from "@/server/db/schema";
 import EmailProvider from "next-auth/providers/email";
 import { env } from "@/env";
-import { sql } from "drizzle-orm";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -53,6 +51,25 @@ export const authOptions: NextAuthOptions = {
         id: user.id,
       },
     }),
+    async signIn(params) {
+      const userEmail = params.user.email;
+      if (!userEmail) {
+        return false;
+      }
+
+      const isAllowed = await db.query.allowedEmails.findFirst({
+        where: (fields, { eq }) => eq(fields.email, userEmail),
+      });
+
+      if (!isAllowed) {
+        return new URL(
+          "/sign-up?error=NoNewSignUpAllowed",
+          env.NEXTAUTH_URL,
+        ).toString();
+      }
+
+      return true;
+    },
   },
   adapter: DrizzleAdapter(db, {
     usersTable: users,
