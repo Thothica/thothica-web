@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { signIn } from "next-auth/react";
+import { useToast } from "@/components/ui/use-toast";
 
 const FormSchema = z.object({
   email: z
@@ -29,6 +30,7 @@ const FormSchema = z.object({
 });
 
 export function LoginForm() {
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -36,8 +38,16 @@ export function LoginForm() {
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    signIn("email", { email: data.email });
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    try {
+      await signIn("email", { email: data.email });
+    } catch (error) {
+      toast({
+        title: "Sigups are disabled",
+        description:
+          "Signups are disabled for now, If you are interested in this product please send a mail to adnan@thothica.com",
+      });
+    }
   }
 
   return (
