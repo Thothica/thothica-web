@@ -1,8 +1,9 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import SearchIcon from "public/assets/SearchIcon";
-import React, { useState } from "react";
+'use client'
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { error } from 'console';
+import SearchIcon from 'public/assets/SearchIcon';
+import React, { useState } from 'react';
 
 const tags = [
   { id: 1, name: "Academic" },
@@ -27,8 +28,10 @@ const Searchbar = () => {
 
   const handleSearch = () => {
     console.log('Search query:', searchQuery);
-    if (searchQuery) {
+    if (searchQuery && selectedTag) {
       setResults(['result1', 'result2']);
+    } else {
+      alert('Select a Tag first!');
     }
   };
 
