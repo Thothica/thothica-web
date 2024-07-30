@@ -8,6 +8,7 @@ import { useState } from "react";
 import Error from "@/components/Error";
 import { SkeletonCard } from "./SkeletonCard";
 import { useRouter } from "next/navigation";
+import Spinner from "./spinner";
 
 interface indexSelection {
   id: number;
@@ -79,14 +80,14 @@ const Searchbar = () => {
 
   return (
     <div className="mx-auto w-full max-w-2xl">
-      <div className="mb-4 flex items-center rounded-lg border bg-foreground px-4 py-2">
+      <div className="mb-4 flex items-center rounded-lg bg-foreground px-4 py-2">
         <div className="relative flex-1 rounded-sm bg-background">
           <Input
             type="search"
             placeholder="Enter Your Research Question Here..."
             value={searchQuery}
             onChange={handleInputChange}
-            className="w-full border-none bg-transparent focus:outline-none focus:ring-0"
+            className="w-full bg-transparent focus:outline-none focus:ring-0"
           />
         </div>
         <Button
@@ -115,8 +116,13 @@ const Searchbar = () => {
           </Button>
         ))}
       </div>
-      <div className="rounded-lg bg-background py-4">
-        {isSearching && <SkeletonCard />}
+      <div className="rounded-lg bg-transparent my-4">
+      {searchMutation.isPending &&
+        <div className="flex items-center justify-center gap-4 my-4 sm:gap-6">
+          <Spinner size={30} />
+          <span className="font-bold text-lg sm:text-xl text-lefy">Searching among the best documents for you</span>
+        </div>
+      }
 
         {searchMutation.isError && (
           <Error message={searchMutation.error.message} />
