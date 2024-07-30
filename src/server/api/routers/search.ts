@@ -7,6 +7,7 @@ import {
   removeDuplicatesByScore,
 } from "../utils";
 import { TRPCError } from "@trpc/server";
+import { resultGroup } from "@/server/db/schema";
 
 const searchQuery = (vectorField: string, query: string) => {
   return {
@@ -34,7 +35,7 @@ export const searchRouter = createTRPCRouter({
         opensearchIndex: z.enum(indices),
       }),
     )
-    .mutation(async ({ input }) => {
+    .mutation(async ({ input, ctx }) => {
       let query = {};
 
       switch (input.opensearchIndex) {
@@ -60,8 +61,32 @@ export const searchRouter = createTRPCRouter({
           index: input.opensearchIndex,
           body: query,
         });
-        const results = response.body.hits.hits as OpensearchDocument[];
-        return removeDuplicatesByScore(results);
+        const results = response.body.hits.hits as OpensearchDocument[]; // eslint-disable-line
+        const filteredResults = removeDuplicatesByScore(results);
+
+        const opensearchIds: string[] = [];
+
+        for (const result of filteredResults) {
+          opensearchIds.push(result._id);
+        }
+
+        const newResultGroup = await ctx.db
+          .insert(resultGroup)
+          .values({
+            userId: ctx.session.user.id,
+            opensearchIndex: input.opensearchIndex,
+            query: input.query,
+            opensearchIds,
+          })
+          .returning();
+
+        if (!newResultGroup[0]) {
+          throw new TRPCError({
+            code: "INTERNAL_SERVER_ERROR",
+          });
+        }
+
+        return newResultGroup[0].id;
       } catch (error) {
         console.log(error);
         throw new TRPCError({
