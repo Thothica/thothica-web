@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "./ui/button";
-import { Bookmark } from 'lucide-react';
-import { Trash2 } from 'lucide-react';
+import { Bookmark } from "lucide-react";
+import { Trash2 } from "lucide-react";
 
 interface ResultCardProps {
   title: string;
@@ -18,35 +18,33 @@ const ResultCard: React.FC<React.PropsWithChildren<ResultCardProps>> = ({
   children,
 }) => {
   return (
-    <div className=" p-6 my-6 border border-gray-300 shadow-xl rounded-lg hover:bg-foreground/10 transition-all">
+    <div className=" my-6 rounded-lg border border-gray-300 p-6 shadow-xl transition-all hover:bg-foreground/10">
       <div className="flex justify-between pb-4">
-
         <div>
-          <h1 className="font-serif font-bold text-lg sm:text-2xl">{title}</h1>
-          { author && <p className="text-sm sm:text-normal">{author}</p>}
+          <h1 className="font-serif text-lg font-bold sm:text-2xl">{title}</h1>
+          {author && <p className="sm:text-normal text-sm">{author}</p>}
         </div>
 
-        <div className="flex ml-4">
-          { handleSave && 
+        <div className="ml-4 flex">
+          {handleSave && (
             <Button onClick={handleSave} className="ml-4">
-              <div className="flex flex-center">
-              Save
-              <Bookmark className="ml-2 w-4 h-4"/>
+              <div className="flex-center flex">
+                Save
+                <Bookmark className="ml-2 h-4 w-4" />
               </div>
             </Button>
-          }
-          { handleRemove && 
+          )}
+          {handleRemove && (
             <Button onClick={handleRemove} className="ml-4">
-              <div className="flex flex-center">
-              Remove
-              <Trash2 className="ml-2 w-4 h-4"/>
+              <div className="flex-center flex">
+                Remove
+                <Trash2 className="ml-2 h-4 w-4" />
               </div>
             </Button>
-          }
+          )}
         </div>
-
       </div>
-    
+
       {children}
     </div>
   );

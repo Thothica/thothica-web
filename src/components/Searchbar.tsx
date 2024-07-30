@@ -123,11 +123,17 @@ const Searchbar = () => {
         {searchMutation.isSuccess && (
           <span>
             {searchMutation.data.map((result) => (
-              <ResultCard 
+              <ResultCard
                 key={result._id}
-                title={result._source.Title? result._source.Title: result._source.title}
+                title={
+                  result._source.Title
+                    ? result._source.Title
+                    : result._source.title
+                }
                 author={result._source.Author}
-                handleSave={()=> {''}}
+                handleSave={() => {
+                  ("");
+                }}
               />
             ))}
           </span>
