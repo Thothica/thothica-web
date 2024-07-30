@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { type Index } from "@/server/api/utils";
 import { api } from "@/trpc/react";
-import { Search } from 'lucide-react';
+import { Search } from "lucide-react";
 import { useState } from "react";
 import Error from "@/components/Error";
 import { SkeletonCard } from "./SkeletonCard";
@@ -19,7 +19,11 @@ const tags: indexSelection[] = [
   { id: 2, name: "Arabic Books", opensearchIndex: "cleaned-arabicbooks-index" },
   { id: 3, name: "Legal", opensearchIndex: "legaltext-index" },
   { id: 4, name: "Indic Literature", opensearchIndex: "indic-lit-index" },
-  { id: 5, name: "Grey Literature", opensearchIndex: "libertarian-chunks-index" },
+  {
+    id: 5,
+    name: "Grey Literature",
+    opensearchIndex: "libertarian-chunks-index",
+  },
   { id: 6, name: "Poetry", opensearchIndex: "arabic-poems-index" },
   { id: 7, name: "Dutch Text", opensearchIndex: "cleaned-dutchtext-index" },
   { id: 8, name: "Open Alex", opensearchIndex: "openalex-index" },
@@ -38,7 +42,11 @@ const Searchbar = () => {
     },
   });
 
-  const [selectedTag, setSelectedTag] = useState<indexSelection>({ id: 1, name: "Library Of Congress", opensearchIndex: "loc-new-index" });
+  const [selectedTag, setSelectedTag] = useState<indexSelection>({
+    id: 1,
+    name: "Library Of Congress",
+    opensearchIndex: "loc-new-index",
+  });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchQuery(e.target.value);
@@ -94,7 +102,9 @@ const Searchbar = () => {
             variant="outline"
             size="sm"
             className={`rounded-full border-muted-foreground shadow-md hover:bg-primary hover:text-primary-foreground ${
-              selectedTag.id === tag.id ? "bg-primary text-primary-foreground" : ""
+              selectedTag.id === tag.id
+                ? "bg-primary text-primary-foreground"
+                : ""
             }`}
             onClick={() => handleTagClick(tag)}
           >
@@ -102,22 +112,22 @@ const Searchbar = () => {
           </Button>
         ))}
       </div>
-
       <div className="rounded-lg bg-background py-4">
         {isSearching && <SkeletonCard />}
 
-        {searchMutation.isError && <Error message={searchMutation.error.message} />}
+        {searchMutation.isError && (
+          <Error message={searchMutation.error.message} />
+        )}
 
         {searchMutation.isSuccess && (
           <span>
             {searchMutation.data.map((result) => (
-              <div key={result._id}>
-                {result._source.Title}
-              </div>
+              <div key={result._id}>{result._source.Title}</div>
             ))}
           </span>
         )}
-      </div>Q
+      </div>
+      Q
     </div>
   );
 };

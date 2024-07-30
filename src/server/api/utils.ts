@@ -33,7 +33,9 @@ export interface OpensearchDocument {
   _source: any;
 }
 
-export const removeDuplicatesByScore = (searchResponses: OpensearchDocument[]) => {
+export const removeDuplicatesByScore = (
+  searchResponses: OpensearchDocument[],
+) => {
   const unique = new Set<number>();
   const filteredResponses: OpensearchDocument[] = [];
 
