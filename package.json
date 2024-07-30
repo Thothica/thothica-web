@@ -16,6 +16,7 @@
     "format": "prettier . --write --ignore-unknown --no-error-on-unmatched-pattern"
   },
   "dependencies": {
+    "@ai-sdk/openai": "^0.0.40",
     "@auth/drizzle-adapter": "^1.1.0",
     "@hookform/resolvers": "^3.9.0",
     "@libsql/client": "^0.6.0",
@@ -29,6 +30,7 @@
     "@trpc/client": "next",
     "@trpc/react-query": "next",
     "@trpc/server": "next",
+    "ai": "^3.2.39",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "drizzle-orm": "^0.30.10",

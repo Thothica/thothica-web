@@ -127,7 +127,6 @@ const Searchbar = () => {
           </span>
         )}
       </div>
-      Q
     </div>
   );
 };

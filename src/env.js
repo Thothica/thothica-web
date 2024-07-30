@@ -28,6 +28,7 @@ export const env = createEnv({
     OPENSEARCH_PASSWORD: z.string(),
     EMAIL_SERVER: z.string(),
     EMAIL_FROM: z.string().email(),
+    OPENAI_API_KEY: z.string(),
   },
 
   /**
@@ -54,6 +55,7 @@ export const env = createEnv({
     OPENSEARCH_PASSWORD: process.env.OPENSEARCH_PASSWORD,
     EMAIL_FROM: process.env.EMAIL_FROM,
     EMAIL_SERVER: process.env.EMAIL_SERVER,
+    OPENAI_API_KEY: process.env.OPENAI_API_KEY,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
