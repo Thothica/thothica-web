@@ -1,6 +1,6 @@
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 import { z } from "zod";
-import { indices, opensearchClient } from "../utils";
+import { indices, opensearchClient, OpensearchDocument } from "../utils";
 import { TRPCError } from "@trpc/server";
 
 export const documentRouter = createTRPCRouter({
@@ -14,7 +14,7 @@ export const documentRouter = createTRPCRouter({
     .query(async ({ input }) => {
       const query = {
         _source: {
-          excludes: ["*_embedding"],
+          excludes: ["*_embedding", "Raw_*", "*Thinking*", "*thinking*"],
         },
         query: {
           ids: {
@@ -34,7 +34,14 @@ export const documentRouter = createTRPCRouter({
             code: "NOT_FOUND",
           });
         }
-        return response.body.hits.hits[0];
+        if (!response.body.hits.hits[0]) {
+          throw new TRPCError({
+            message: "No document exsists for the given id.",
+            code: "NOT_FOUND",
+          });
+        }
+        const doc = response.body.hits.hits[0] as OpensearchDocument;
+        return doc;
       } catch (error) {
         console.error(error);
       }

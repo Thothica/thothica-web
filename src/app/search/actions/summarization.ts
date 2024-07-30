@@ -1,18 +1,18 @@
 "use server";
-
 import "server-only";
 import { createStreamableValue } from "ai/rsc";
-import { CoreMessage, streamText } from "ai";
+import { type CoreMessage, streamText } from "ai";
 import { openai } from "@ai-sdk/openai";
-import { Index } from "@/server/api/utils";
+import { type Index } from "@/server/api/utils";
 import { db } from "@/server/db";
 import { getServerAuthSession } from "@/server/auth";
-import { savedResults } from "@/server/db/schema";
+import { resultGroup } from "@/server/db/schema";
+import { eq } from "drizzle-orm";
 
 export async function generateSummary(
   opensearchIndex: Index,
   dehydratedSource: string,
-  opensearchDocId: string,
+  resultId: string,
 ) {
   const session = await getServerAuthSession();
   if (!session) {
@@ -103,12 +103,10 @@ export async function generateSummary(
       model: openai("gpt-4o-mini"),
       messages: summaryPrompt,
       onFinish: async ({ text }) => {
-        await db.insert(savedResults).values({
-          generatedSummary: text,
-          opensearchId: opensearchDocId,
-          opensearchIndex: opensearchIndex,
-          userId: session.user.id,
-        });
+        await db
+          .update(resultGroup)
+          .set({ generatedSummary: text })
+          .where(eq(resultGroup.id, resultId));
       },
     });
 
