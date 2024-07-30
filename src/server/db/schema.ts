@@ -19,15 +19,15 @@ import { indices } from "../api/utils";
  */
 export const createTable = sqliteTableCreator((name) => `thothica_${name}`);
 
-export const savedResults = createTable(
-  "searchHistory",
+export const resultGroup = createTable(
+  "resultGroup",
   {
     id: text("id", { length: 255 }).notNull().primaryKey().$defaultFn(nanoid),
-    query: text("query", { length: 255 }),
-    opensearchId: text("result", { length: 255 }).notNull(),
-    opensearchIndex: text("index", { enum: indices }).notNull(),
-    title: text("title", { length: 255 }),
-    author: text("author", { length: 255 }),
+    query: text("query", { length: 255 }).notNull(),
+    opensearchIds: text("opensearchIds", { mode: "json" })
+      .notNull()
+      .$type<string[]>(),
+    opensearchIndex: text("opensearchIndex", { enum: indices }).notNull(),
     generatedSummary: blob("generatedSummary"),
     generatedPaper: blob("generatedPaper"),
     userId: text("userId", { length: 255 })
@@ -37,14 +37,14 @@ export const savedResults = createTable(
       }),
   },
   (savedResults) => ({
-    savedResultuserIdIdx: index("savedResult_userId_idx").on(
+    savedResultuserIdIdx: index("resultGroup_userId_idx").on(
       savedResults.userId,
     ),
   }),
 );
 
-export const savedResultsRelation = relations(savedResults, ({ one }) => ({
-  user: one(users, { fields: [savedResults.userId], references: [users.id] }),
+export const savedResultsRelation = relations(resultGroup, ({ one }) => ({
+  user: one(users, { fields: [resultGroup.userId], references: [users.id] }),
 }));
 
 export const users = createTable("user", {
@@ -59,7 +59,7 @@ export const users = createTable("user", {
 
 export const usersRelations = relations(users, ({ many }) => ({
   accounts: many(accounts),
-  savedResults: many(savedResults),
+  savedResults: many(resultGroup),
 }));
 
 export const accounts = createTable(
