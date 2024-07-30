@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 interface ResultCardProps {
   title: string;
@@ -7,12 +7,15 @@ interface ResultCardProps {
   handleHistory: (id: string) => void;
 }
 
-const ResultCard: React.FC<ResultCardProps> = ({ title, id, handleSave, handleHistory }) => {
+const ResultCard: React.FC<ResultCardProps> = ({
+  title,
+  id,
+  handleSave,
+  handleHistory,
+}) => {
   return (
     <div className="result-card">
       <h2>{title}</h2>
-      
-      </div>
     </div>
   );
 };
