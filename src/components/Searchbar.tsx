@@ -7,7 +7,7 @@ import { Search } from "lucide-react";
 import { useState } from "react";
 import Error from "@/components/Error";
 import { SkeletonCard } from "./SkeletonCard";
-import ResultCard from "./ResultCard";
+import { useRouter } from "next/navigation";
 
 interface indexSelection {
   id: number;
@@ -33,10 +33,12 @@ const tags: indexSelection[] = [
 const Searchbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
+  const router = useRouter();
 
   const searchMutation = api.searchRouter.searchOnIndex.useMutation({
-    onSuccess: () => {
+    onSuccess: (resultId) => {
       setIsSearching(false);
+      router.push(`/search/result/${resultId}`);
     },
     onError: () => {
       setIsSearching(false);
@@ -44,9 +46,9 @@ const Searchbar = () => {
   });
 
   const [selectedTag, setSelectedTag] = useState<indexSelection>({
-    id: 1,
-    name: "Library Of Congress",
-    opensearchIndex: "loc-new-index",
+    id: 2,
+    name: "Arabic Books",
+    opensearchIndex: "cleaned-arabicbooks-index",
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -120,24 +122,24 @@ const Searchbar = () => {
           <Error message={searchMutation.error.message} />
         )}
 
-        {searchMutation.isSuccess && (
-          <span>
-            {searchMutation.data.map((result) => (
-              <ResultCard
-                key={result._id}
-                title={
-                  result._source.Title
-                    ? result._source.Title
-                    : result._source.title
-                }
-                author={result._source.Author}
-                handleSave={() => {
-                  ("");
-                }}
-              />
-            ))}
-          </span>
-        )}
+        {/*searchMutation.isSuccess && (
+                    <span>
+                        {searchMutation.data.map((result) => (
+                            <ResultCard
+                                key={result._id}
+                                title={
+                                    result._source.Title
+                                        ? result._source.Title
+                                        : result._source.title
+                                }
+                                author={result._source.Author}
+                                handleSave={() => {
+                                    ("");
+                                }}
+                            />
+                        ))}
+                    </span>
+                )*/}
       </div>
     </div>
   );
