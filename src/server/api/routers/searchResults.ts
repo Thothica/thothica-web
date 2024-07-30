@@ -38,8 +38,8 @@ export const searchResultRouter = createTRPCRouter({
     .input(
       z.object({
         opensearchIndex: z.enum(indices),
-        query: z.string().min(1),
-        opensearchDocument: OpensearchDocumentSchema,
+        query: z.string().optional(),
+        opensearchDocumentId: z.string().min(1),
       }),
     )
     .mutation(async ({ input, ctx }) => {
@@ -47,8 +47,8 @@ export const searchResultRouter = createTRPCRouter({
         await ctx.db.insert(savedResults).values({
           userId: ctx.session.user.id,
           opensearchIndex: input.opensearchIndex,
-          query: input.query,
-          opensearchDoc: input.opensearchDocument,
+          query: input.query ?? "",
+          opensearchId: input.opensearchDocumentId,
         });
       } catch (error) {
         throw new TRPCError({
