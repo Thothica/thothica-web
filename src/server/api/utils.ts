@@ -31,8 +31,24 @@ export interface OpensearchDocument {
   _id: string;
   _index: string;
   _score: number;
-  _source: DocumentSource;
+  _source: any;
 }
+
+export const removeDuplicatesByScore = (
+  searchResponses: OpensearchDocument[],
+) => {
+  const unique = new Set<number>();
+  const filteredResponses: OpensearchDocument[] = [];
+
+  for (const response of searchResponses) {
+    if (!unique.has(response._score)) {
+      unique.add(response._score);
+      filteredResponses.push(response);
+    }
+  }
+
+  return filteredResponses;
+};
 
 const literalSchema = z.union([z.string(), z.number(), z.boolean(), z.null()]);
 type Literal = z.infer<typeof literalSchema>;
