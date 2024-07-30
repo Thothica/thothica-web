@@ -29,11 +29,22 @@ export default async function ResultGroup({
   return (
     <>
       {opensearchDocument.map((doc) => (
-        <ResultCard
-          key={doc._id}
-          title={doc._source.Title ? doc._source.Title : doc._source.title}
-          author={doc._source.Author}
-        />
+        <div key={doc._id}>
+          <ResultCard
+            title={doc._source.Title ? doc._source.Title : doc._source.title}
+            author={doc._source.Author}
+          />
+          {Object.keys(doc._source).map((key) => (
+            <div key={key} className="flex space-x-2">
+              <h1>{key}</h1>
+              {doc._source[key].length > 20 ? (
+                <></>
+              ) : (
+                <h1>{doc._source[key]}</h1>
+              )}
+            </div>
+          ))}
+        </div>
       ))}
     </>
   );
