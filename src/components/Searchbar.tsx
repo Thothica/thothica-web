@@ -112,12 +112,12 @@ const Searchbar = () => {
           <span>
             {searchMutation.data.map((result) => (
               <div key={result._id}>
-                {result._id}
+                {result._source.Title}
               </div>
             ))}
           </span>
         )}
-      </div>
+      </div>Q
     </div>
   );
 };
