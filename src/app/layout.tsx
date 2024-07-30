@@ -1,9 +1,9 @@
 import "@/styles/globals.css";
 
 import { GeistSans } from "geist/font/sans";
-
 import { getServerAuthSession } from "@/server/auth";
 import { TRPCReactProvider } from "@/trpc/react";
+import { Toaster } from "@/components/ui/toaster";
 import LoginPage from "./login/page";
 
 export const metadata = {
@@ -23,6 +23,7 @@ export default async function RootLayout({
       <body>
         <TRPCReactProvider>
           {!user ? <LoginPage /> : children}
+          <Toaster />
         </TRPCReactProvider>
       </body>
     </html>

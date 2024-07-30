@@ -1,5 +1,6 @@
 import { env } from "@/env";
 import { Client } from "@opensearch-project/opensearch";
+import { z } from "zod";
 
 export const indices = [
   "indic-lit-index",
@@ -23,7 +24,7 @@ export const opensearchClient = new Client({
 
 export interface DocumentSource {
   Title: string;
-  [key: string]: any;
+  [key: string]: any; // eslint-disable-line
 }
 
 export interface OpensearchDocument {
@@ -48,3 +49,17 @@ export const removeDuplicatesByScore = (
 
   return filteredResponses;
 };
+
+const literalSchema = z.union([z.string(), z.number(), z.boolean(), z.null()]);
+type Literal = z.infer<typeof literalSchema>;
+type Json = Literal | { [key: string]: Json } | Json[];
+const jsonSchema: z.ZodType<Json> = z.lazy(() =>
+  z.union([literalSchema, z.array(jsonSchema), z.record(jsonSchema)]),
+);
+
+export const OpensearchDocumentSchema = z.object({
+  _id: z.string(),
+  _index: z.string(),
+  _score: z.number(),
+  _source: jsonSchema,
+});

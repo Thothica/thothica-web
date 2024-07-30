@@ -1,11 +1,6 @@
 import { createTRPCRouter, protectedProcedure } from "@/server/api/trpc";
 import { z } from "zod";
-import {
-  indices,
-  opensearchClient,
-  OpensearchDocument,
-  removeDuplicatesByScore,
-} from "../utils";
+import { indices, opensearchClient, type OpensearchDocument, removeDuplicatesByScore, } from "../utils";
 import { TRPCError } from "@trpc/server";
 
 const searchQuery = (vectorField: string, query: string) => {
@@ -61,7 +56,6 @@ export const searchRouter = createTRPCRouter({
           body: query,
         });
         const results = response.body.hits.hits as OpensearchDocument[];
-
         return removeDuplicatesByScore(results);
       } catch (error) {
         console.log(error);
