@@ -6,7 +6,6 @@ import { api } from "@/trpc/react";
 import { Search } from "lucide-react";
 import { useState } from "react";
 import Error from "@/components/Error";
-import { SkeletonCard } from "./SkeletonCard";
 import { useRouter } from "next/navigation";
 import Spinner from "./spinner";
 

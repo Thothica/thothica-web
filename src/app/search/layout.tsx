@@ -4,8 +4,15 @@ export default async function RootLayout({
     children: React.ReactNode;
   }) {
     return (
-      <div className="">
-        {children}
+      <div>
+        
+        <div className="container py-6 sm:py-12">
+            User
+        </div>
+
+        <div>
+            {children}
+        </div>
       </div>
     );
   }

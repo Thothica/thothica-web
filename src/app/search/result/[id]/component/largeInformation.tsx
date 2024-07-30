@@ -6,7 +6,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-export default function largeInformation({
+export default function LargeInformation({
   title,
   value,
 }: {
@@ -17,7 +17,7 @@ export default function largeInformation({
     <Accordion type="single" collapsible>
       <AccordionItem value="item-1">
         <AccordionTrigger>{title}</AccordionTrigger>
-        <AccordionContent>{value}</AccordionContent>
+        <AccordionContent className="font-normal">{value}</AccordionContent>
       </AccordionItem>
     </Accordion>
   );
