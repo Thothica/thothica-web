@@ -7,6 +7,7 @@ import { Search } from "lucide-react";
 import { useState } from "react";
 import Error from "@/components/Error";
 import { SkeletonCard } from "./SkeletonCard";
+import ResultCard from "./ResultCard";
 
 interface indexSelection {
   id: number;
@@ -15,7 +16,7 @@ interface indexSelection {
 }
 
 const tags: indexSelection[] = [
-  { id: 1, name: "Library Of Congress", opensearchIndex: "loc-new-index" },
+  // { id: 1, name: "Library Of Congress", opensearchIndex: "loc-new-index" },
   { id: 2, name: "Arabic Books", opensearchIndex: "cleaned-arabicbooks-index" },
   { id: 3, name: "Legal", opensearchIndex: "legaltext-index" },
   { id: 4, name: "Indic Literature", opensearchIndex: "indic-lit-index" },
@@ -122,7 +123,12 @@ const Searchbar = () => {
         {searchMutation.isSuccess && (
           <span>
             {searchMutation.data.map((result) => (
-              <div key={result._id}>{result._source.Title}</div>
+              <ResultCard 
+                key={result._id}
+                title={result._source.Title? result._source.Title: result._source.title}
+                author={result._source.Author}
+                handleSave={()=> {''}}
+              />
             ))}
           </span>
         )}
