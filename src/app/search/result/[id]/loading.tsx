@@ -1,4 +1,9 @@
 import Spinner from "@/components/spinner";
 export default function resultLoading() {
-  return <Spinner />;
+  return (
+    <div className="flex flex-center min-h-screen">
+      <Spinner size={100} />;
+    </div>
+  )
+
 }
