@@ -14,7 +14,7 @@ export const documentRouter = createTRPCRouter({
     .query(async ({ input }) => {
       const query = {
         _source: {
-          excludes: ["*_embedding"],
+          excludes: ["*_embedding", "Raw_*", "*Thinking*", "*thinking*"],
         },
         query: {
           ids: {
