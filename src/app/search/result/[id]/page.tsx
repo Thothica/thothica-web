@@ -43,6 +43,7 @@ export default async function ResultGroup({
 
   return (
     <>
+
       <section>
         {summary ? (
           <LargeInformation title="Generated Summary" value={summary} />
@@ -73,22 +74,28 @@ export default async function ResultGroup({
         {opensearchDocument.map((doc) => (
           <div key={doc._id} className="text-base font-bold sm:text-lg">
             <ResultCard
-              title={doc._source.Title ? doc._source.Title : doc._source.title}
-              author={doc._source.Author}
+
+              title={doc._source.Title ? doc._source.Title : doc._source.title} // eslint-disable-line
+              author={doc._source.Author} // eslint-disable-line
             >
-              {Object.keys(doc._source).map((key) => (
-                <div key={key} className="flex py-2">
-                  <h1>{key}:&nbsp;</h1>
-                  {doc._source[key] && doc._source[key].length > 100 ? (
-                    <LargeInformation
-                      title={"Expand"}
-                      value={doc?._source[key]}
-                    />
-                  ) : (
-                    <h1 className="font-normal">{doc._source[key]}</h1>
-                  )}
-                </div>
-              ))}
+              {Object.keys(doc._source).map( // eslint-disable-line
+                (
+                  key, // eslint-disable-line
+                ) => (
+                  <div key={key} className="flex py-2">
+                    <h1>{key}:&nbsp;</h1>
+                    {doc._source[key] && doc._source[key].length > 100 ? ( // eslint-disable-line
+                      <LargeInformation
+                        title={"Expand"}
+                        value={doc?._source[key]} // eslint-disable-line
+                      />
+                    ) : (
+                      <h1 className="font-normal">{doc._source[key]}</h1> // eslint-disable-line
+                    )}
+                  </div>
+                ),
+              )}
+
             </ResultCard>
           </div>
         ))}
