@@ -27,7 +27,7 @@ const tags: indexSelection[] = [
   },
   { id: 6, name: "Poetry", opensearchIndex: "arabic-poems-index" },
   { id: 7, name: "Dutch Text", opensearchIndex: "cleaned-dutchtext-index" },
-  { id: 8, name: "Open Alex", opensearchIndex: "openalex-index" },
+  { id: 8, name: "Academic Papers", opensearchIndex: "openalex-index" },
 ];
 
 const Searchbar = () => {

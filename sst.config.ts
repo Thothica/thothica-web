@@ -12,6 +12,9 @@ export default {
     app.stack(function Site({ stack }) {
       const site = new NextjsSite(stack, "site", {
         timeout: "60 seconds",
+        regional: {
+          prefetchSecrets: true,
+        },
       });
 
       stack.addOutputs({
