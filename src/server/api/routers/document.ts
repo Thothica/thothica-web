@@ -20,6 +20,8 @@ export const documentRouter = createTRPCRouter({
             "*Thinking*",
             "*thinking*",
             "*token",
+            "primary_topic",
+            "open_access",
           ],
         },
         query: {
