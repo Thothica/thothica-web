@@ -15,11 +15,13 @@ const SavedCard: React.FC<React.PropsWithChildren<SavedCardProps>> = ({
   handleRemove,
 }) => {
   return (
-    <div className="mx-auto max-w-4xl my-6 rounded-lg hover:bg-foreground/10 border border-gray-400 p-6 shadow-xl transition-all">
+    <div className="mx-auto my-6 max-w-4xl rounded-lg border border-gray-400 p-6 shadow-xl transition-all hover:bg-foreground/10">
       <div className="">
         <div className="flex items-center justify-between">
-          <h1 className="font-serif text-lg font-bold sm:text-2xl">Query: {title}</h1>
-          <ChevronRight className="w-6 h-6"/>
+          <h1 className="font-serif text-lg font-bold sm:text-2xl">
+            Query: {title}
+          </h1>
+          <ChevronRight className="h-6 w-6" />
         </div>
 
         <div className="ml-4 flex">
@@ -41,7 +43,6 @@ const SavedCard: React.FC<React.PropsWithChildren<SavedCardProps>> = ({
           )}
         </div>
       </div>
-
     </div>
   );
 };

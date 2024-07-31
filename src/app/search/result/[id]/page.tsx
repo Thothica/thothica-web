@@ -30,7 +30,7 @@ export default async function ResultGroup({
   return (
     <section>
       {opensearchDocument.map((doc) => (
-        <div key={doc._id} className="text-base sm:text-lg font-bold">
+        <div key={doc._id} className="text-base font-bold sm:text-lg">
           <ResultCard
             title={doc._source.Title ? doc._source.Title : doc._source.title}
             author={doc._source.Author}
@@ -38,8 +38,11 @@ export default async function ResultGroup({
             {Object.keys(doc._source).map((key) => (
               <div key={key} className="flex py-2">
                 <h1>{key}:&nbsp;</h1>
-                {doc._source[key].length > 100 ? ( 
-                  <LargeInformation title={'Expand'} value={doc?._source[key]}/>
+                {doc._source[key] && doc._source[key].length > 100 ? (
+                  <LargeInformation
+                    title={"Expand"}
+                    value={doc?._source[key]}
+                  />
                 ) : (
                   <h1 className="font-normal">{doc._source[key]}</h1>
                 )}

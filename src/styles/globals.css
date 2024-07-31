@@ -45,7 +45,7 @@
 }
 
 .gradient {
-  @apply bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-orange-900 via-amber-100 to-orange-900
+  @apply bg-[conic-gradient(at_top_right,_var(--tw-gradient-stops))] from-orange-900 via-amber-100 to-orange-900;
 }
 .flex-center {
   @apply flex items-center justify-center;

@@ -2,7 +2,7 @@ import { Skeleton, SVGSkeleton } from "@/components/SkeletonCard";
 
 const LoadingSkeleton = () => (
   <>
-    <div className="my-6 border border-yellow-800 p-6 shadow-xl rounded-lg">
+    <div className="my-6 rounded-lg border border-yellow-800 p-6 shadow-xl">
       <div className="flex justify-between pb-4">
         <div>
           <h1>
@@ -14,7 +14,7 @@ const LoadingSkeleton = () => (
         </div>
         <div className="ml-4 flex"></div>
       </div>
-      <div className="p-6 border border-yellow-800 rounded-lg">
+      <div className="rounded-lg border border-yellow-800 p-6">
         <div className="flex py-2">
           <h1>
             <Skeleton className="w-[104px] max-w-full" />
@@ -24,7 +24,7 @@ const LoadingSkeleton = () => (
               <h3 className="flex">
                 <div className="flex flex-1 items-center justify-between">
                   <Skeleton className="w-[48px] max-w-full" />
-                  <SVGSkeleton className="shrink-0 w-[24px] h-[24px]" />
+                  <SVGSkeleton className="h-[24px] w-[24px] shrink-0" />
                 </div>
               </h3>
             </div>
@@ -63,7 +63,7 @@ const LoadingSkeleton = () => (
               <h3 className="flex">
                 <div className="flex flex-1 items-center justify-between">
                   <Skeleton className="w-[48px] max-w-full" />
-                  <SVGSkeleton className="shrink-0 w-[24px] h-[24px]" />
+                  <SVGSkeleton className="h-[24px] w-[24px] shrink-0" />
                 </div>
               </h3>
             </div>
@@ -78,7 +78,7 @@ const LoadingSkeleton = () => (
               <h3 className="flex">
                 <div className="flex flex-1 items-center justify-between">
                   <Skeleton className="w-[48px] max-w-full" />
-                  <SVGSkeleton className="shrink-0 w-[24px] h-[24px]" />
+                  <SVGSkeleton className="h-[24px] w-[24px] shrink-0" />
                 </div>
               </h3>
             </div>
@@ -133,7 +133,7 @@ const LoadingSkeleton = () => (
               <h3 className="flex">
                 <div className="flex flex-1 items-center justify-between">
                   <Skeleton className="w-[48px] max-w-full" />
-                  <SVGSkeleton className="shrink-0 w-[24px] h-[24px]" />
+                  <SVGSkeleton className="h-[24px] w-[24px] shrink-0" />
                 </div>
               </h3>
             </div>
@@ -153,7 +153,7 @@ const LoadingSkeleton = () => (
 );
 
 const SandboxPreview = () => (
-  <div className="flex justify-center w-full h-full p-6">
+  <div className="flex h-full w-full justify-center p-6">
     <LoadingSkeleton />
   </div>
 );

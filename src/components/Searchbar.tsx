@@ -115,13 +115,15 @@ const Searchbar = () => {
           </Button>
         ))}
       </div>
-      <div className="rounded-lg bg-transparent my-4">
-      {searchMutation.isPending &&
-        <div className="flex items-center justify-center gap-4 my-4 sm:gap-6">
-          <Spinner size={30} />
-          <span className="font-bold text-lg sm:text-xl text-lefy">Searching among the best documents for you</span>
-        </div>
-      }
+      <div className="my-4 rounded-lg bg-transparent">
+        {searchMutation.isPending && (
+          <div className="my-4 flex items-center justify-center gap-4 sm:gap-6">
+            <Spinner size={30} />
+            <span className="text-lefy text-lg font-bold sm:text-xl">
+              Searching among the best documents for you
+            </span>
+          </div>
+        )}
 
         {searchMutation.isError && (
           <Error message={searchMutation.error.message} />

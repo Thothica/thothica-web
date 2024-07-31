@@ -18,7 +18,7 @@ const ResultCard: React.FC<React.PropsWithChildren<ResultCardProps>> = ({
   children,
 }) => {
   return (
-    <div className=" my-6 rounded-lg bg-foreground/10 border border-gray-400 p-6 shadow-xl transition-all">
+    <div className=" my-6 rounded-lg border border-gray-400 bg-foreground/10 p-6 shadow-xl transition-all">
       <div className="flex justify-between pb-4">
         <div>
           <h1 className="font-serif text-lg font-bold sm:text-2xl">{title}</h1>
@@ -44,11 +44,10 @@ const ResultCard: React.FC<React.PropsWithChildren<ResultCardProps>> = ({
           )}
         </div>
       </div>
-      
-      <div className="p-6 bg-background border border-gray-300 rounded-lg">
+
+      <div className="rounded-lg border border-gray-300 bg-background p-6">
         {children}
       </div>
-
     </div>
   );
 };
