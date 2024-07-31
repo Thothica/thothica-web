@@ -29,6 +29,7 @@ export default function SummaryButton({
     );
 
     setSummary("");
+    // @ts-expect-error docs said to use this
     for await (const content of readStreamableValue(result)) {
       if (!content) continue;
       setSummary(content);
