@@ -10,7 +10,7 @@ export default async function RootLayout({
             User
         </div>
 
-        <div>
+        <div className="container">
             {children}
         </div>
       </div>

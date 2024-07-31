@@ -28,20 +28,20 @@ export default async function ResultGroup({
   const opensearchDocument = data.filter((doc) => doc !== undefined);
 
   return (
-    <section className="container">
+    <section>
       {opensearchDocument.map((doc) => (
-        <div key={doc._id} className="font-bold">
+        <div key={doc._id} className="text-base sm:text-lg font-bold">
           <ResultCard
             title={doc._source.Title ? doc._source.Title : doc._source.title}
             author={doc._source.Author}
           >
             {Object.keys(doc._source).map((key) => (
-              <div key={key} className="flex space-x-2">
-                <h1>{key}:</h1>
-                {doc._source[key].length > 20 ? ( 
+              <div key={key} className="flex py-2">
+                <h1>{key}:&nbsp;</h1>
+                {doc._source[key].length > 100 ? ( 
                   <LargeInformation title={'Expand'} value={doc?._source[key]}/>
                 ) : (
-                  <h1>{doc._source[key]}</h1>
+                  <h1 className="font-normal">{doc._source[key]}</h1>
                 )}
               </div>
             ))}

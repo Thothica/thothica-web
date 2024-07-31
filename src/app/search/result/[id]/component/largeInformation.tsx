@@ -17,7 +17,7 @@ export default function LargeInformation({
     <Accordion type="single" collapsible>
       <AccordionItem value="item-1">
         <AccordionTrigger>{title}</AccordionTrigger>
-        <AccordionContent className="font-normal">{value}</AccordionContent>
+        <AccordionContent className="whitespace-pre-wrap font-normal text-base sm:text-lg">{value}</AccordionContent>
       </AccordionItem>
     </Accordion>
   );
