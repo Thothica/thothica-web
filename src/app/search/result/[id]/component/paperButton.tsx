@@ -32,6 +32,7 @@ export default function PaperButton({
     );
 
     setPaper("");
+    // @ts-expect-error docs said to use this
     for await (const content of readStreamableValue(result)) {
       if (!content) continue;
       setPaper(content);
