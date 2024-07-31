@@ -9,7 +9,7 @@
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
     "db:studio": "drizzle-kit studio",
-    "dev": "next dev",
+    "dev": "sst bind next dev",
     "format": "prettier . --write --ignore-unknown --no-error-on-unmatched-pattern",
     "format:check": "prettier . --check --ignore-unknown --no-error-on-unmatched-pattern",
     "lint": "next lint",
@@ -45,7 +45,6 @@
     "react-dom": "^18.3.0",
     "react-hook-form": "^7.52.1",
     "server-only": "^0.0.1",
-    "sst": "ion",
     "superjson": "^2.2.1",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
@@ -66,7 +65,10 @@
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.14",
     "tailwindcss": "^3.4.3",
-    "typescript": "^5.5.3"
+    "typescript": "^5.5.3",
+    "sst": "^2.43.4",
+    "aws-cdk-lib": "2.142.1",
+    "constructs": "10.3.0"
   },
   "ct3aMetadata": {
     "initVersion": "7.34.0"

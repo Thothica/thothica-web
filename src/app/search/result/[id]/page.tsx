@@ -69,19 +69,23 @@ export default async function ResultGroup({
               title={doc._source.Title ? doc._source.Title : doc._source.title} // eslint-disable-line
               author={doc._source.Author} // eslint-disable-line
             >
-              {Object.keys(doc._source).map((key) => ( // eslint-disable-line
-                <div key={key} className="flex py-2">
-                  <h1>{key}:&nbsp;</h1>
-                  {doc._source[key] && doc._source[key].length > 100 ? ( // eslint-disable-line
-                    <LargeInformation
-                      title={"Expand"}
-                      value={doc?._source[key]} // eslint-disable-line
-                    />
-                  ) : (
-                    <h1 className="font-normal">{doc._source[key]}</h1> // eslint-disable-line
-                  )}
-                </div>
-              ))}
+              {Object.keys(doc._source).map( // eslint-disable-line
+                (
+                  key, // eslint-disable-line
+                ) => (
+                  <div key={key} className="flex py-2">
+                    <h1>{key}:&nbsp;</h1>
+                    {doc._source[key] && doc._source[key].length > 100 ? ( // eslint-disable-line
+                      <LargeInformation
+                        title={"Expand"}
+                        value={doc?._source[key]} // eslint-disable-line
+                      />
+                    ) : (
+                      <h1 className="font-normal">{doc._source[key]}</h1> // eslint-disable-line
+                    )}
+                  </div>
+                ),
+              )}
             </ResultCard>
           </div>
         ))}

@@ -1,14 +1,22 @@
-/// <reference path="./.sst/platform/config.d.ts" />
+import { type SSTConfig } from "sst";
+import { NextjsSite } from "sst/constructs";
 
-export default $config({
-  app(input) {
+export default {
+  config(_input) {
     return {
       name: "thothica-web",
-      removal: input?.stage === "production" ? "retain" : "remove",
-      home: "aws",
+      region: "ap-south-1",
     };
   },
-  async run() {
-    new sst.aws.Nextjs("MyWeb");
+  stacks(app) {
+    app.stack(function Site({ stack }) {
+      const site = new NextjsSite(stack, "site", {
+        timeout: "60 seconds",
+      });
+
+      stack.addOutputs({
+        SiteUrl: site.url,
+      });
+    });
   },
-});
+} satisfies SSTConfig;
