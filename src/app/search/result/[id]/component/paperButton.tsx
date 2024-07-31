@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { type ChangeEvent, useState } from "react";
 import { generatePaper } from "../../actions/academicPaper";
 import { readStreamableValue } from "ai/rsc";
+import LargeInformation from "./largeInformation";
 
 export default function PaperButton({
   dehydratedKeys,
@@ -17,10 +18,12 @@ export default function PaperButton({
   query: string;
 }) {
   const [paper, setPaper] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const HandleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setPaper("Generating Paper please wait a moment...");
+    setLoading(true);
+    setPaper("Generating Paper, please wait a moment...");
     const result = await generatePaper(
       dehydratedSource,
       dehydratedKeys,
@@ -29,21 +32,23 @@ export default function PaperButton({
     );
 
     setPaper("");
-    // @ts-expect-error Docs say to do this
     for await (const content of readStreamableValue(result)) {
-      if (!content) {
-        continue;
-      }
+      if (!content) continue;
       setPaper(content);
     }
+    setLoading(false);
   };
+
   return (
     <>
-      {paper}
-      {paper.length == 0 && (
+      {paper.length === 0 ? (
         <form onSubmit={HandleSubmit}>
-          <Button type="submit">Generate Paper</Button>
+          <Button type="submit" disabled={loading}>
+            {loading ? "Generating..." : "Generate Paper"}
+          </Button>
         </form>
+      ) : (
+        <LargeInformation title="Generated Paper" value={paper} />
       )}
     </>
   );

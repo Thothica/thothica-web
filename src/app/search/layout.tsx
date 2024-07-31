@@ -19,13 +19,15 @@ export default async function RootLayout({
         <div className="flex items-center gap-4">
           <Link
             href={"/search"}
+            prefetch={true}
             className="font-serif underline hover:text-primary"
           >
             Search
           </Link>
           <Link
             href={"/search/result"}
-            className="font-serif underline hover:text-primary"
+            prefetch={true}
+            className="mr-4 font-serif underline hover:text-primary"
           >
             Saved
           </Link>
