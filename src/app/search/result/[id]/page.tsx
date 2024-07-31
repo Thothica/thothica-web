@@ -2,6 +2,7 @@ import Error from "@/components/Error";
 import ResultCard from "@/components/ResultCard";
 import { db } from "@/server/db";
 import { api } from "@/trpc/server";
+import LargeInformation from "./component/largeInformation";
 
 export default async function ResultGroup({
   params,
@@ -27,25 +28,29 @@ export default async function ResultGroup({
   const opensearchDocument = data.filter((doc) => doc !== undefined);
 
   return (
-    <>
+    <section>
       {opensearchDocument.map((doc) => (
-        <div key={doc._id}>
+        <div key={doc._id} className="text-base font-bold sm:text-lg">
           <ResultCard
             title={doc._source.Title ? doc._source.Title : doc._source.title}
             author={doc._source.Author}
-          />
-          {Object.keys(doc._source).map((key) => (
-            <div key={key} className="flex space-x-2">
-              <h1>{key}</h1>
-              {doc._source[key].length > 20 ? (
-                <></>
-              ) : (
-                <h1>{doc._source[key]}</h1>
-              )}
-            </div>
-          ))}
+          >
+            {Object.keys(doc._source).map((key) => (
+              <div key={key} className="flex py-2">
+                <h1>{key}:&nbsp;</h1>
+                {doc._source[key] && doc._source[key].length > 100 ? (
+                  <LargeInformation
+                    title={"Expand"}
+                    value={doc?._source[key]}
+                  />
+                ) : (
+                  <h1 className="font-normal">{doc._source[key]}</h1>
+                )}
+              </div>
+            ))}
+          </ResultCard>
         </div>
       ))}
-    </>
+    </section>
   );
 }

@@ -1,13 +1,14 @@
-import { Skeleton } from "@/components/ui/skeleton";
+const Skeleton = ({ className }: { className: string }) => (
+  <div aria-live="polite" aria-busy="true" className={className}>
+    <span className="inline-flex w-full animate-pulse select-none rounded-md bg-primary leading-none">
+      ‌
+    </span>
+    <br />
+  </div>
+);
 
-export function SkeletonCard() {
-  return (
-    <div className="flex flex-col space-y-3">
-      <Skeleton className="h-[125px] w-[300px] rounded-xl bg-primary" />
-      <div className="space-y-2">
-        <Skeleton className="h-4 w-[250px] bg-primary" />
-        <Skeleton className="h-4 w-[200px] bg-primary" />
-      </div>
-    </div>
-  );
-}
+const SVGSkeleton = ({ className }: { className: string }) => (
+  <svg className={className + " animate-pulse rounded bg-primary"} />
+);
+
+export { Skeleton, SVGSkeleton };
