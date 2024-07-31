@@ -1,9 +1,10 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import { type ChangeEvent, useState } from "react";
+import { useState, type ChangeEvent } from "react";
 import { generateSummary } from "../../actions/summarization";
 import { type Index } from "@/server/api/utils";
 import { readStreamableValue } from "ai/rsc";
+import LargeInformation from "./largeInformation";
 
 export default function SummaryButton({
   opensearchIndex,
@@ -15,10 +16,12 @@ export default function SummaryButton({
   resultId: string;
 }) {
   const [summary, setSummary] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const HandleSubmit = async (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSummary("Generating Summary please wait a moment...");
+    setLoading(true);
+    setSummary("Generating Summary, please wait a moment...");
     const result = await generateSummary(
       opensearchIndex,
       dehydratedSource,
@@ -26,21 +29,23 @@ export default function SummaryButton({
     );
 
     setSummary("");
-    // @ts-expect-error Docs say to do this
     for await (const content of readStreamableValue(result)) {
-      if (!content) {
-        continue;
-      }
+      if (!content) continue;
       setSummary(content);
     }
+    setLoading(false);
   };
+
   return (
     <>
-      {summary}
-      {summary.length == 0 && (
+      {summary.length === 0 ? (
         <form onSubmit={HandleSubmit}>
-          <Button type="submit">Generate Summary</Button>
+          <Button type="submit" disabled={loading}>
+            {loading ? "Generating..." : "Generate Summary"}
+          </Button>
         </form>
+      ) : (
+        <LargeInformation title="Generated Summary" value={summary} />
       )}
     </>
   );
