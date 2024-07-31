@@ -1,5 +1,6 @@
 import Signout from "@/components/Signout";
 import { getServerAuthSession } from "@/server/auth";
+import Image from "next/image";
 import Link from "next/link";
 
 export default async function RootLayout({
@@ -13,9 +14,17 @@ export default async function RootLayout({
   return (
     <div>
       <div className="container flex justify-between py-6 sm:py-12">
-        <span className="text-bold font-serif text-lg">
+        <div className="flex items-center">
+          <span className="text-bold mr-4 font-serif text-lg">
+            <Image
+              src="/thothica.svg"
+              alt="Thothica Logo"
+              width={40}
+              height={40}
+            />
+          </span>
           {session.user.email}
-        </span>
+        </div>
         <div className="flex items-center gap-4">
           <Link
             href={"/search"}
