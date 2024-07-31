@@ -1,28 +1,27 @@
 import React from "react";
 import { Button } from "./ui/button";
-import { Bookmark } from "lucide-react";
+import { Bookmark, ChevronRight } from "lucide-react";
 import { Trash2 } from "lucide-react";
 
-interface ResultCardProps {
+interface SavedCardProps {
   title: string;
-  author?: string;
   handleSave?: () => void;
   handleRemove?: () => void;
 }
 
-const ResultCard: React.FC<React.PropsWithChildren<ResultCardProps>> = ({
+const SavedCard: React.FC<React.PropsWithChildren<SavedCardProps>> = ({
   title,
-  author,
   handleSave,
   handleRemove,
-  children,
 }) => {
   return (
-    <div className=" my-6 rounded-lg border border-gray-400 bg-foreground/10 p-6 shadow-xl transition-all">
-      <div className="flex justify-between pb-4">
-        <div>
-          <h1 className="font-serif text-lg font-bold sm:text-2xl">{title}</h1>
-          {author && <p className="sm:text-normal text-sm">{author}</p>}
+    <div className="mx-auto my-6 max-w-4xl rounded-lg border border-gray-400 p-6 shadow-xl transition-all hover:bg-foreground/10">
+      <div className="">
+        <div className="flex items-center justify-between">
+          <h1 className="font-serif text-lg font-bold sm:text-2xl">
+            Query: {title}
+          </h1>
+          <ChevronRight className="h-6 w-6" />
         </div>
 
         <div className="ml-4 flex">
@@ -44,12 +43,8 @@ const ResultCard: React.FC<React.PropsWithChildren<ResultCardProps>> = ({
           )}
         </div>
       </div>
-
-      <div className="rounded-lg border border-gray-300 bg-background p-6">
-        {children}
-      </div>
     </div>
   );
 };
 
-export default ResultCard;
+export default SavedCard;

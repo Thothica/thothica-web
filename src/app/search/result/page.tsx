@@ -1,6 +1,7 @@
-import ResultCard from "@/components/ResultCard";
+import SavedCard from "@/components/SavedCard";
 import { getServerAuthSession } from "@/server/auth";
 import { db } from "@/server/db";
+import { Bookmark } from "lucide-react";
 import Link from "next/link";
 export default async function AllResults() {
   const session = await getServerAuthSession();
@@ -16,12 +17,16 @@ export default async function AllResults() {
   }
 
   return (
-    <>
+    <section>
+      <div className="flex-center flex space-x-2">
+        <Bookmark className="h-6 w-6 sm:h-12 sm:w-12" />
+        <h1 className="text-2xl font-bold sm:text-4xl">Saved Queries</h1>
+      </div>
       {resultGroups.map((result) => (
         <Link key={result.id} href={`/search/result/${result.id}`}>
-          <ResultCard key={result.id} title={result.query} />
+          <SavedCard key={result.id} title={result.query} />
         </Link>
       ))}
-    </>
+    </section>
   );
 }

@@ -81,7 +81,9 @@ export function LoginForm() {
           </Button>
         </form>
       </Form>
-      {loading && <Spinner />}
+      <div className="flex justify-center py-4">
+        {loading && <Spinner size={30} />}
+      </div>
     </>
   );
 }
