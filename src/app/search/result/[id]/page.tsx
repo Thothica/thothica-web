@@ -43,7 +43,6 @@ export default async function ResultGroup({
 
   return (
     <>
-
       <section>
         {summary ? (
           <LargeInformation title="Generated Summary" value={summary} />
@@ -74,11 +73,11 @@ export default async function ResultGroup({
         {opensearchDocument.map((doc) => (
           <div key={doc._id} className="text-base font-bold sm:text-lg">
             <ResultCard
-
               title={doc._source.Title ? doc._source.Title : doc._source.title} // eslint-disable-line
               author={doc._source.Author} // eslint-disable-line
             >
-              {Object.keys(doc._source).map( // eslint-disable-line
+              {Object.keys(doc._source).map(
+                // eslint-disable-line
                 (
                   key, // eslint-disable-line
                 ) => (
@@ -95,7 +94,6 @@ export default async function ResultGroup({
                   </div>
                 ),
               )}
-
             </ResultCard>
           </div>
         ))}
