@@ -18,9 +18,11 @@ export default async function AllResults() {
 
   return (
     <section>
-      <div className="flex-center flex space-x-2">
+      <div className="flex-center mb-12 flex space-x-2">
         <Bookmark className="h-6 w-6 sm:h-12 sm:w-12" />
-        <h1 className="text-2xl font-bold sm:text-4xl">Saved Queries</h1>
+        <h1 className="font-serif text-2xl font-bold text-primary sm:text-4xl">
+          Saved Queries
+        </h1>
       </div>
       {resultGroups.map((result) => (
         <Link key={result.id} href={`/search/result/${result.id}`}>

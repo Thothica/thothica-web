@@ -43,29 +43,38 @@ export default async function ResultGroup({
 
   return (
     <>
-      {summary ? (
-        <h1>{summary}</h1>
-      ) : (
-        <SummaryButton
-          opensearchIndex={results.opensearchIndex}
-          resultId={results.id}
-          dehydratedSource={dehydratedSource}
-        />
-      )}
-      {paper ? (
-        <h1>{paper}</h1>
-      ) : (
-        <PaperButton
-          dehydratedSource={dehydratedSource}
-          dehydratedKeys={dehydratedkeys}
-          query={results.query}
-          resultId={results.id}
-        />
-      )}
+
+      <section>
+        {summary ? (
+          <LargeInformation title="Generated Summary" value={summary} />
+        ) : (
+          <div className="py-4">
+            <SummaryButton
+              opensearchIndex={results.opensearchIndex}
+              resultId={results.id}
+              dehydratedSource={dehydratedSource}
+            />
+          </div>
+        )}
+        {paper ? (
+          <LargeInformation title="Generated Paper" value={paper} />
+        ) : (
+          <div className="py-4">
+            <PaperButton
+              dehydratedSource={dehydratedSource}
+              dehydratedKeys={dehydratedkeys}
+              query={results.query}
+              resultId={results.id}
+            />
+          </div>
+        )}
+      </section>
+
       <section>
         {opensearchDocument.map((doc) => (
           <div key={doc._id} className="text-base font-bold sm:text-lg">
             <ResultCard
+
               title={doc._source.Title ? doc._source.Title : doc._source.title} // eslint-disable-line
               author={doc._source.Author} // eslint-disable-line
             >
@@ -86,6 +95,7 @@ export default async function ResultGroup({
                   </div>
                 ),
               )}
+
             </ResultCard>
           </div>
         ))}
