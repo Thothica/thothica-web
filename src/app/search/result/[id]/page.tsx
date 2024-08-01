@@ -76,8 +76,7 @@ export default async function ResultGroup({
               title={doc._source.Title ? doc._source.Title : doc._source.title} // eslint-disable-line
               author={doc._source.Author} // eslint-disable-line
             >
-              {Object.keys(doc._source).map(
-                // eslint-disable-line
+              {Object.keys(doc._source).map( // eslint-disable-line
                 (
                   key, // eslint-disable-line
                 ) => (
