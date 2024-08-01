@@ -24,12 +24,7 @@ export default function PaperButton({
     e.preventDefault();
     setLoading(true);
     setPaper("Generating Paper, please wait a moment...");
-    const result = await generatePaper(
-      dehydratedSource,
-      dehydratedKeys,
-      resultId,
-      query,
-    );
+    const result = await generatePaper(query, dehydratedSource, dehydratedKeys, resultId );
 
     setPaper("");
     // @ts-expect-error docs said to use this
