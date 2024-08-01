@@ -33,7 +33,7 @@ export async function generatePaper(
 
   try {
     const { text } = await generateText({
-      model: openai("gpt-4o-mini"),
+      model: openai("gpt-4"),
       messages: paperPrompt,
     });
 
@@ -45,7 +45,7 @@ export async function generatePaper(
     });
 
     const result = await streamText({
-      model: openai("gpt-4o-mini"),
+      model: openai("gpt-4"),
       messages: paperPrompt,
       onFinish: async ({ text }) => {
         await db
