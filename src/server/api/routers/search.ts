@@ -55,6 +55,9 @@ export const searchRouter = createTRPCRouter({
         case "indic-lit-index":
           query = searchQuery("Raw_response_embedding", input.query);
           break;
+        case "american-data-index": 
+            query = searchQuery("text_embedding", input.query)
+            break;
       }
       try {
         const response = await opensearchClient.search({
