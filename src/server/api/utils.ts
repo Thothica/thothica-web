@@ -10,6 +10,7 @@ export const indices = [
   "cleaned-dutchtext-index",
   "openalex-index",
   "cleaned-arabicbooks-index",
+  "american-data-index"
 ] as const;
 
 export type Index = (typeof indices)[number];
